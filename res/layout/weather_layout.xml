@@ -10,11 +10,12 @@
         
         <Button
             android:id="@+id/switch_city"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/home"/>
+            android:text="返回"
+            android:textSize="14sp"/>"
         
         <TextView
             android:id="@+id/city_name"
@@ -26,16 +27,18 @@
         
         <Button
             android:id="@+id/refresh_weather"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:background="@drawable/refresh"/>
+            android:text="刷新"
+            android:textSize="14sp"/>
         
         </RelativeLayout>
 
     	<RelativeLayout
+    	    android:id="@+id/background"
     	    android:layout_width="match_parent"
     	    android:layout_height="0dp"
     	    android:layout_weight="1"
@@ -49,7 +52,7 @@
     	        android:layout_marginRight="10dp"
     	        android:layout_marginTop="10dp"
     	        android:textColor="#FFF"
-    	        android:textSize="18sp" />
+    	        android:textSize="14sp" />
     	    
     	<LinearLayout 
     	    android:id="@+id/weather_info_layout"
@@ -63,8 +66,8 @@
     	        android:layout_width="wrap_content"
     	        android:layout_height="40dp"
     	        android:gravity="center"
-    	        android:textColor="#7cfc00"
-    	        android:textSize="18sp" />
+    	        android:textColor="#fff"
+    	        android:textSize="16sp" />
     	    
     	    <TextView
     	        android:id="@+id/weather_desp"

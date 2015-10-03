@@ -1,6 +1,9 @@
 package com.test.weather.activity;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.test.weather.R;
 import com.test.weather.receiver.AutoUpdateReceiver;
 import com.test.weather.service.AutoUpdateService;
@@ -32,6 +35,11 @@ public class WeatherActivity extends Activity implements OnClickListener{
 	private TextView currentDateText;//显示当前日期
 	private Button switchCity;//切换城市按钮
 	private Button refreshWeather;//更新天气按钮
+	private enum WeatherKind{
+		cloudy,fog,hailstone,light_rain,moderte_rain,overcast,rain_snow,sand_strom,rainstorm,
+		shower_rain,snow,sunny,thundershower;
+	}
+	
 	
 		@Override
 		protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +150,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 		private void showWeather(){
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			cityNameText.setText(prefs.getString("city_name", ""));
-			temp1Text.setText(prefs.getString("temp1", ""));
+			temp1Text.setText(prefs.getString("temp1",""));
 			temp2Text.setText(prefs.getString("temp2", ""));
 			weatherDespText.setText(prefs.getString("weather_desp", ""));
 			publishText.setText("今天"+prefs.getString("pulish_time", "")+"发布");
@@ -151,5 +159,89 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			cityNameText.setVisibility(View.VISIBLE);
 			Intent intent = new Intent(this,AutoUpdateService.class);
 			startService(intent);
+			
+			String weatherDesp = prefs.getString("weather_desp", "");  
+	        weatherDespText.setText(weatherDesp);  
+	        WeatherKind myWeather = weatherkind.get(weatherDesp);  
+	        if (myWeather != null) {  
+	            changeBackground(myWeather);  
+	        }  
 		}
+		
+		//添加静态的map对象存储String天气类型和枚举天气类型的对应关系
+		private static Map<String, WeatherKind>weatherkind = new HashMap<String, WeatherKind>();
+		static{
+			weatherkind.put("多云", WeatherKind.cloudy);  
+	        weatherkind.put("雾", WeatherKind.fog);  
+	        weatherkind.put("冰雹", WeatherKind.hailstone);  
+	        weatherkind.put("小雨", WeatherKind.light_rain);  
+	        weatherkind.put("中雨", WeatherKind.moderte_rain);  
+	        weatherkind.put("阴", WeatherKind.overcast);  
+	        weatherkind.put("雨加雪", WeatherKind.rain_snow);  
+	        weatherkind.put("沙尘暴", WeatherKind.sand_strom);  
+	        weatherkind.put("暴雨", WeatherKind.rainstorm);  
+	        weatherkind.put("阵雨", WeatherKind.shower_rain);  
+	        weatherkind.put("小雪", WeatherKind.snow);  
+	        weatherkind.put("晴", WeatherKind.sunny);  
+	        weatherkind.put("雷阵雨", WeatherKind.thundershower);
+		}
+
+
+private void changeBackground(WeatherKind weather) {  
+    View view = findViewById(R.id.background);  
+    switch (weather) {  
+    case cloudy:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.cloudy));  
+        break;  
+    case fog:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.fog));  
+        break;  
+    case hailstone:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.hailstone));  
+        break;  
+    case light_rain:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.light_rain));  
+        break;  
+    case moderte_rain:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.moderte_rain));  
+        break;  
+    case overcast:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.overcast));  
+        break;  
+    case rain_snow:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.rain_snow));  
+        break;  
+    case rainstorm:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.rainstorm));  
+        break;  
+    case sand_strom:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.sand_storm));  
+        break;  
+    case shower_rain:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.shower_rain));  
+        break;  
+    case snow:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(R.drawable.snow));  
+        break;  
+    case sunny:  
+        view.setBackgroundDrawable(this.getResources()  
+                .getDrawable(R.drawable.sunny));  
+        break;  
+    case thundershower:  
+        view.setBackgroundDrawable(this.getResources().getDrawable(  
+                R.drawable.thundershower));  
+        break;  
+    default:  
+        break;  
+    }  
+}
 }
