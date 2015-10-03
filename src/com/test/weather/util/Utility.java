@@ -1,5 +1,6 @@
 package com.test.weather.util;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -95,7 +96,7 @@ public class Utility {
 			e.printStackTrace();
 		}
 	}
-     
+    
 	//将服务器返回的所有天气信息存储到SharedPreferences文件中
 	private static void saveWeatherInfo(Context context, String cityName,
 			String weatherCode, String temp1, String temp2, String weatherDesp,
@@ -109,7 +110,7 @@ public class Utility {
 			editor.putString("temp2", temp2);
 			editor.putString("weather_desp", weatherDesp);
 			editor.putString("publish_time", publishTime);
-			editor.putString("current_data", sdf.format(new Date()));
+			editor.putString("current_date", sdf.format(new Date()));
 			editor.commit();
 			
 		

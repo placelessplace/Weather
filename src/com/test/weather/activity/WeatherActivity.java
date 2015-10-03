@@ -2,6 +2,8 @@ package com.test.weather.activity;
 
 
 import com.test.weather.R;
+import com.test.weather.receiver.AutoUpdateReceiver;
+import com.test.weather.service.AutoUpdateService;
 import com.test.weather.util.HttpCallbackListener;
 import com.test.weather.util.HttpUtil;
 import com.test.weather.util.Utility;
@@ -136,7 +138,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			});
 		}
 
-		//从SharedPreferences文件中读取存储的天气细腻些，并显示到界面上
+		//从SharedPreferences文件中读取存储的天气信息，并显示到界面上
 		private void showWeather(){
 			SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 			cityNameText.setText(prefs.getString("city_name", ""));
@@ -147,5 +149,7 @@ public class WeatherActivity extends Activity implements OnClickListener{
 			currentDateText.setText(prefs.getString("current_date", ""));
 			weatherInfoLayout.setVisibility(View.VISIBLE);
 			cityNameText.setVisibility(View.VISIBLE);
+			Intent intent = new Intent(this,AutoUpdateService.class);
+			startService(intent);
 		}
 }
